@@ -1,0 +1,37 @@
+Given an array of integers, return indices of the two numbers such that they add up to a specific target.
+
+You may assume that each input would have exactly one solution, and you may not use the same element twice.
+
+
+Best Way to solve:
+First, I need to know what is our priority? The space or time?
+If the space is my priority. I will use brute force method to solve this question, the time complexity will 
+be O(N) and space complexity will be O(1).
+
+public int[] twoSum(int[] nums, int target) {
+    for (int i = 0; i < nums.length; i++) {
+        for (int j = i + 1; j < nums.length; j++) {
+            if (nums[j] == target - nums[i]) {
+                return new int[] { i, j };
+            }
+        }
+    }
+    throw new IllegalArgumentException("No two sum solution");
+}
+
+
+If the time is my priority. The hash table will be the best way to perform this task. The time complexity will be O(1),
+and the space complexity will be O(N). Of course, if a collision happen when doing the look up task, the time complexity
+can be O(N).
+One Hash Table:
+public int[] twoSum(int[] nums, int target) {
+    Map<Integer, Integer> map = new HashMap<>();
+    for (int i = 0; i < nums.length; i++) {
+        int complement = target - nums[i];
+        if (map.containsKey(complement)) {
+            return new int[] { map.get(complement), i };
+        }
+        map.put(nums[i], i);
+    }
+    throw new IllegalArgumentException("No two sum solution");
+}
